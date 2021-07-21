@@ -7,8 +7,8 @@ de_c_2 = random.randint(1, 13)
 pl_c_1 = random.randint(1, 13)
 pl_c_2 = random.randint(1, 13)
  
- #If a number is 11, 12, 13 it means its K Q J
- #and return it to 10
+# If a number is 11, 12, 13 it means its K Q J
+# and return it to 10
 def royalConversion(cardnumber):
   if cardnumber > 10:
     cardnumber = 10
@@ -17,14 +17,18 @@ def royalConversion(cardnumber):
     cardnumber = cardnumber
     return cardnumber
 
+# Function to calculate summation of list of cards
 def calculateSum(playercards):
   sum = 0
   for i in playercards:
     sum = sum + i
   return sum
 
-#Convert Ace from 11 to 1 if sum exceeds 21
+# Converts 1 to 11 at the beginning
+# Convert Ace from 11 to 1 if sum exceeds 21
 def aceHandler(sumOfCards, playercards):
+  # This above part is handling an exception
+  # if both cards are aces
   if playercards[0] == 11 and playercards[1] == 11:
       playercards[0] == 1
   else:
@@ -55,6 +59,7 @@ sum_of_de_c = aceHandler(sum_of_de_c, dlCards)
 print(sum_of_pl_c)
 print(sum_of_de_c)
 
+# This function will be executed when draw button pressed
 def drawCard():
     print("Click Draw !!!")
     hit_card = random.randint(1, 13)
@@ -72,13 +77,15 @@ def drawCard():
     lbl_value["text"] = f"{sum_of_pl_c}"
     return sum_of_pl_c
 
+# This function is executed when player hits stop
+# This function both similates dealer behaviour and
+# calculates win state
 def passToDealer():
     print("Clicked Stop !!!")
     sum_of_pl_c =  int(lbl_value["text"])
     sum_of_de_c = calculateSum(dlCards)
-    while sum_of_de_c < random.randint(15, 18) and sum_of_de_c < sum_of_pl_c :
+    while sum_of_de_c < 17 and sum_of_de_c < sum_of_pl_c :
         de_hit_card = random.randint(1, 13)
-    
         de_hit_card = royalConversion(de_hit_card)
         if de_hit_card == 1:
           if sum_of_de_c >= 11 :
@@ -92,7 +99,8 @@ def passToDealer():
     
         print("Dealer hit card ---> ",de_hit_card)
         print("Sum of dealer hand = ",sum_of_de_c)
-    
+
+    # Winning state calculations
     if sum_of_pl_c > 21:
       print("You busted because " , sum_of_pl_c , " > 21")
     elif sum_of_de_c > 21:
@@ -117,16 +125,16 @@ def passToDealer():
 window = tk.Tk()
 window.title("Black Jack <3 ")
 
-
-#Size arrangments of window
+# Size arrangments of window
 window.columnconfigure([0, 1, 2], minsize=250, weight=1)
 window.rowconfigure([0, 1, 2], minsize = 250,weight=1)
 
 label_one = tk.Label(
     text="Push a button to proceed")
-label_one.config(font = ("Couirer","14"))
+label_one.config(font = ("Ariel","14"))
 label_one.grid(row = 0, column = 1, sticky="nsew")
 
+# Button creation and assignment
 lbl_value = tk.Label(master=window, text=sum_of_pl_c)
 lbl_value.grid(row=1, column=1)
 
@@ -148,3 +156,5 @@ btn_increase.grid(row=1, column=2, sticky="nsew")
 window.mainloop()
 
 #####################################################
+
+################## END OF CODE ######################
